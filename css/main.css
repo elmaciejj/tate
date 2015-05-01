@@ -7,6 +7,42 @@
         font-weight: 700;
     }
     
+    .hidden {
+        display: none;
+    }
+    
+    .arrow {
+        text-decoration: none;
+        color: rgb(186, 186, 186);
+        position: fixed;
+        left: auto;
+        top: auto;
+        bottom: 40px;
+        right: 40px;
+        -webkit-animation-name: greenPulse;
+        -webkit-animation-duration: 2s;
+        -webkit-animation-iteration-count: infinite;
+    }
+    
+    @-webkit-keyframes greenPulse {
+        from {
+            text-shadow: 0 0 5px #333;
+        }
+        50% {
+            text-shadow: 0 0 10px #91bd09;
+            color: white;
+        }
+        to {
+            text-shadow: 0 0 5px #333;
+        }
+    }
+    
+    .arrow:hover,
+    .arrow:focus {
+        text-decoration: none;
+        color: white;
+    }
+    
     .background-fade {
         position: absolute;
         top: 0;
@@ -44,10 +80,6 @@
     .inner {
         margin-left: auto;
         margin-right: auto;
-        width:
-        /*whatever width you want*/
-        
-        ;
     }
     
     .table {

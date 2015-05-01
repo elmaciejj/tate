@@ -1,17 +1,13 @@
 <!doctype html>
-<html ng-app="myApp">
-
+<html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
     <script src="https://cdn.firebase.com/js/client/2.2.1/firebase.js"></script>
-    <script src="https://cdn.firebase.com/libs/angularfire/1.0.0/angularfire.min.js"></script>
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/main.css">
 </head>
-
-<body ng-controller="MyController">
+<body>
     <iframe style="display:none" width="0" height="0" src="http://www.youtube.com/embed/ckVYO9oI8vc?rel=0&autoplay=0" frameborder="0" allowfullscreen></iframe>
     <div class="background-fade"></div>
     <div class="row text-center">
@@ -19,21 +15,19 @@
             <div class="middle">
                 <div class="inner">
                     <div id="text1">
-                        Tate, to ja. <input class="form-control" ng-model="name" type="text" id="nameInput" placeholder="Janusz">.
+                        Tate, to ja. <input class="form-control" type="text" id="nameInput" placeholder="Janusz">. 
+                        <a class="glyphicon glyphicon-menu-right arrow" id="Arrow1" href="#"></a>
                     </div>
                     <div id="text2" style="display:none">
-                        Tate. Ja wiszę Maćkowi <input class="form-control" ng-model="msg" ng-keydown="addMessage($event)" type="text" id="messageInput" placeholder="20"> ZŁOTY za pizze :(
+                        Tate. Ja wiszę Maćkowi <input class="form-control" type="text" id="valueInput" placeholder="20"> ZŁOTY za pizze :(<br>
+                        <a class="glyphicon glyphicon-menu-right arrow" id="Arrow2" href="#"></a>
                     </div>
                     <div id="text3" style="display:none;">
                         <div class="col-md-12 center-block">
-                            {{ name }}, Ty się nie martw. Takich jak Ty jest więcej.
+                            <span id="nameOutput1"></span>, Ty się nie martw. Takich jak Ty jest więcej.
                         </div>
                         <div class="col-md-4 center-block" style="float:none">
-                            <table class="table">
-                                <tr ng-repeat="msg in messages">
-                                    <td>{{ msg.from }}</td>
-                                    <td>{{ msg.body }} ZŁ</td>
-                                </tr>
+                            <table class="table" id="debtorsList">
                             </table>
                         </div>
                     </div>
@@ -41,7 +35,7 @@
             </div>
         </div>
     </div>
-    <script src="js/firebaseLoad.js"></script>
     <script src="js/steps.js"></script>
+    <script src="js/firebaseIO.js"></script>
 </body>
 </html>
