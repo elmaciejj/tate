@@ -1,0 +1,155 @@
+<!doctype html>
+<html ng-app="myApp">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+    <script src="https://cdn.firebase.com/js/client/2.2.1/firebase.js"></script>
+    <script src="https://cdn.firebase.com/libs/angularfire/1.0.0/angularfire.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <style>
+    body {
+        background-image: url("img/pizza.jpg");
+        background-position: center top;
+        background-size: 100% auto;
+        color:white;
+        font-size:40px;
+        font-weight: 700;
+    }
+    .background-fade
+        {
+            position:absolute;
+            top:0; right:0;
+            bottom:0; left:0;
+            background-color:rgba(40, 20, 48, 0.71);
+            z-index: 0;
+        }
+        
+    .form-control
+        {
+        display: inline;
+        width:200px;
+        color: #FFF;
+        background-color: transparent;
+        border: none;
+        border-bottom: 1px solid white;
+        border-radius: 0px;
+            height:42px;
+            font-size:30px;
+        }
+    .outer {
+        display: table;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+    }
+
+    .middle {
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    .inner {
+        margin-left: auto;
+        margin-right: auto; 
+        width: /*whatever width you want*/;
+    }
+        
+    .table
+    {
+        font-size: 12px;
+    }
+        
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+  padding: 3px;
+  border-top: 1px solid rgba(232, 231, 231, 0.26);
+}
+    </style>
+  </head>
+
+  <body ng-controller="MyController">
+<iframe style="display:none" width="0" height="0" src="http://www.youtube.com/embed/ckVYO9oI8vc?rel=0&autoplay=1"
+frameborder="0" allowfullscreen></iframe>
+<div class="background-fade"></div>
+<div class="row text-center">
+<div class="outer">
+<div class="middle">
+<div class="inner">
+<div class="container">
+                <div id="text1">
+                    Tate, to ja. <input class="form-control" ng-model="name" type="text" id="nameInput" placeholder="Janusz">.
+                </div>
+                <div id="text2" style="display:none">
+                    <h1>Tate. Ja wiszę Maćkowi 
+                    <input class="form-control" ng-model="msg" ng-keydown="addMessage($event)" type="text" id="messageInput"  placeholder="20"> ZŁOTY za pizze :(</h1>
+                </div>
+        <div id="text3" style="display:none;"> 
+        <div class="col-md-12 center-block">
+            {{ name }}, Ty się nie martw. Takich jak Ty jest więcej.
+        </div>
+        <div class="col-md-4 center-block" style="float:none">
+        <table class="table">
+            <tr ng-repeat="msg in messages">
+                <td>{{ msg.from }}</td>
+                <td>{{ msg.body }} ZŁ</td>
+            </tr>
+        </table>
+        </div>
+        </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+    <script>
+      var myApp = angular.module("myApp", ["firebase"]);
+      myApp.controller("MyController", ["$scope", "$firebaseArray",
+        function($scope, $firebaseArray) {
+          var ref = new Firebase("https://tate.firebaseio.com/tatee");
+          $scope.messages = $firebaseArray(ref);
+          $scope.addMessage = function(e) {
+            if (e.keyCode === 13 && $scope.msg) {
+              var name = $scope.name || "anonymous";
+              $scope.messages.$add({
+                from: name,
+                body: $scope.msg
+              });
+            }
+          }
+        }
+      ]);
+    </script>
+      
+    <script>    
+    $(function text2(){
+    $('#nameInput').on('keyup', function(event) {
+        if (event.keyCode == 13) {    
+            if(this.value.length > 0){
+        $('#text2').show();
+        $('#text1').hide();
+        }
+        else {
+            $('#text2').hide();
+        }
+        }
+        });
+    });
+    </script>
+    <script>    
+    $(function text3(){
+    $('#messageInput').on('keyup', function(event) {
+        if (event.keyCode == 13) {    
+            if(this.value.length > 0){
+        $('#text3').show();
+        $('#text2').hide();
+        }
+        else {
+            $('#text3').hide();
+        }
+        }
+        });
+    });
+    </script>
+  </body>
+</html>
