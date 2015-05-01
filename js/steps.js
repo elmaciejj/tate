@@ -1,41 +1,23 @@
-$(function hideArrows() {
-$('#Arrow1').hide();
+//UI
+
 $('#Arrow2').hide();
-});
-
-//STEP 1
-$('#nameInput').keypress(function (e) {
-$('#Arrow1').delay(600).fadeIn();
-});
-
-$('#Arrow1').click(function (e) {
-    $('#text1').hide();
-    $('#text2').fadeIn();
-});
-
-
-//STEP 2
-$(function showText2() {
-    $('#nameInput').keypress(function (event) {
-        if (event.keyCode == 13 && this.value.length > 0) {
-            $('#text1').hide();
-            $('#text2').fadeIn();
-        }
-    });
-});
 
 $('#valueInput').keypress(function (e) {
     $('#Arrow2').fadeIn();
 });
+
+$('#valueInput').on('keypress', function (e) {
+    return e.metaKey || // cmd/ctrl
+        e.which <= 0 || // arrow keys
+        e.which == 8 || // delete key
+        /[0-9]/.test(String.fromCharCode(e.which)); // numbers
+})
 
 $('#Arrow2').click(function (e) {
     $('#text2').hide();
     $('#text3').fadeIn();
 });
 
-
-
-//STEP 3
 $(function showTtext3() {
     $('#valueInput').keypress(function (event) {
         if (event.keyCode == 13 && this.value.length > 0) {
@@ -44,11 +26,3 @@ $(function showTtext3() {
         }
     });
 });
-
-
-//display name in 3 step
-$("#nameInput").bind("keyup", changed).bind("change", changed);
-
-function changed() {
-    $("#nameOutput1").text(this.value);
-}

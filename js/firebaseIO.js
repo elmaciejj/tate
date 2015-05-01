@@ -1,16 +1,31 @@
-//send name and debt to the firebase
+//Database IO
 var fb = new Firebase("https://tate.firebaseio.com/tatee");
 
-$('#valueInput').keypress(function (e) {
-    if (e.keyCode == 13 && this.value.length > 0) {
-        var name = $('#nameInput').val();
-        var value = $('#valueInput').val();
-        fb.push({
-            name: name,
-            value: value
-        });
-    }
+$('#fbLogin').click(function (e) {
+    fb.authWithOAuthPopup("facebook", function (error, authData) {
+        if (error) {
+            console.log("Login Failed!", error);
+        } else {
+            var fbName = authData.facebook.displayName;
+            var FireBaseUID = authData.uid;
+            $('#fbName').text(fbName);
+            $('#fbName2').text(fbName);
+            $('#text1').hide();
+            $('#text2').fadeIn();
+            $('#valueInput').keypress(function (e) {
+                if (e.keyCode == 13 && this.value.length > 0) {
+                    var value = $('#valueInput').val();
+                    fb.push({
+                        uid: FireBaseUID,
+                        name: fbName,
+                        value: value
+                    });
+                }
+            });  
+        }
+    });
 });
+
 
 //receive name and debt from firebase
 fb.on('child_added', function (snapshot) {
